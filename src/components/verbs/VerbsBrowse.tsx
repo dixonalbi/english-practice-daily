@@ -9,7 +9,7 @@ import { CategoryTabs } from "@/src/components/learning/CategoryTabs";
 import { Input } from "@/src/components/ui/Input";
 import { Button } from "@/src/components/ui/Button";
 import { PronunciationButton } from "@/src/components/learning/PronunciationButton";
-import { MasteryDot, MasteryLabel } from "@/src/components/ui/Pill";
+import { MasteryDot } from "@/src/components/ui/Pill";
 import { ProgressBar } from "@/src/components/learning/ProgressBar";
 import { MasteryLevel } from "@/src/shared/domain/value-objects/MasteryLevel";
 import {
@@ -181,14 +181,14 @@ export function VerbsBrowse() {
             >
               <div
                 className={cn(
-                  "flex items-center gap-3 px-2 -mx-2 py-5 transition-colors rounded-sm",
+                  "flex items-center gap-2 px-2 -mx-2 py-4 transition-colors rounded-sm",
                   isOpen ? "bg-paper-deep/60" : "hover:bg-paper-deep/40",
                 )}
               >
                 <button
                   type="button"
                   onClick={() => setExpanded(isOpen ? null : v.id)}
-                  className="flex-1 min-w-0 flex items-baseline gap-6 text-left cursor-pointer"
+                  className="flex-1 min-w-0 flex items-center gap-5 text-left cursor-pointer"
                   aria-expanded={isOpen}
                   aria-label={`Toggle conjugation for ${infinitive.text}`}
                 >
@@ -201,9 +201,7 @@ export function VerbsBrowse() {
                       <span
                         className={cn(
                           "display text-2xl md:text-3xl tracking-tight leading-none transition-colors",
-                          isOpen
-                            ? "text-accent"
-                            : "group-hover:text-accent",
+                          isOpen ? "text-accent" : "group-hover:text-accent",
                         )}
                       >
                         {infinitive.text}
@@ -211,36 +209,37 @@ export function VerbsBrowse() {
                       <span className="font-mono text-xs text-ink-muted">
                         {infinitive.ipa}
                       </span>
-                      <span
-                        className={cn(
-                          "eyebrow opacity-0 -translate-x-1 transition-all duration-200",
-                          isOpen
-                            ? "opacity-100 translate-x-0 text-accent"
-                            : "group-hover:opacity-100 group-hover:translate-x-0",
-                        )}
-                      >
-                        {isOpen ? "tap to close" : "tap for tenses"}
-                      </span>
                     </span>
                     <span className="block text-sm text-ink-muted mt-1 italic">
                       {v.spanishMeaning}
                     </span>
                   </span>
+                </button>
 
-                  <span className="hidden md:block w-40 shrink-0">
-                    <MasteryLabel level={v.masteryLevel} />
-                  </span>
-
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "shrink-0 inline-flex items-center justify-center h-7 w-7 rounded-full border border-rule text-ink-muted transition-all duration-300",
-                      isOpen
-                        ? "rotate-180 border-accent text-accent bg-accent-bg"
-                        : "group-hover:border-rule-strong group-hover:text-ink",
-                    )}
-                  >
-                    <ChevronDown size={14} />
+                <button
+                  type="button"
+                  onClick={() => cycleMastery(v)}
+                  aria-label={`Cycle mastery (currently ${v.masteryLevel.toLowerCase()})`}
+                  className={cn(
+                    "hidden sm:inline-flex items-center gap-2 h-7 px-3 rounded-full border text-[10px] font-mono uppercase tracking-[0.18em] transition-colors cursor-pointer shrink-0",
+                    v.masteryLevel === "MASTERED"
+                      ? "bg-mastery-mastered border-mastery-mastered text-paper"
+                      : v.masteryLevel === "LEARNING"
+                        ? "border-mastery-learning/40 text-mastery-learning hover:border-mastery-learning"
+                        : "border-rule-strong text-ink-muted hover:border-ink hover:text-ink",
+                  )}
+                >
+                  {v.masteryLevel === "MASTERED" ? (
+                    <Check size={11} />
+                  ) : (
+                    <MasteryDot level={v.masteryLevel} />
+                  )}
+                  <span>
+                    {v.masteryLevel === "MASTERED"
+                      ? "Mastered"
+                      : v.masteryLevel === "LEARNING"
+                        ? "Learning"
+                        : "Untouched"}
                   </span>
                 </button>
 
@@ -248,20 +247,17 @@ export function VerbsBrowse() {
 
                 <button
                   type="button"
-                  onClick={() => cycleMastery(v)}
+                  onClick={() => setExpanded(isOpen ? null : v.id)}
+                  aria-label={isOpen ? "Collapse" : "Expand conjugation"}
+                  aria-expanded={isOpen}
                   className={cn(
-                    "shrink-0 inline-flex items-center justify-center h-8 w-8 rounded-full border transition-colors cursor-pointer",
-                    v.masteryLevel === "MASTERED"
-                      ? "bg-mastery-mastered border-mastery-mastered text-paper"
-                      : "border-rule-strong text-ink-muted hover:text-accent hover:border-accent",
+                    "shrink-0 inline-flex items-center justify-center h-7 w-7 rounded-full border transition-all duration-300 cursor-pointer",
+                    isOpen
+                      ? "rotate-180 border-accent text-accent bg-accent-bg"
+                      : "border-rule text-ink-muted hover:border-ink hover:text-ink",
                   )}
-                  aria-label="Cycle mastery"
                 >
-                  {v.masteryLevel === "MASTERED" ? (
-                    <Check size={13} />
-                  ) : (
-                    <MasteryDot level={v.masteryLevel} />
-                  )}
+                  <ChevronDown size={14} />
                 </button>
               </div>
 
