@@ -1,0 +1,18 @@
+import "@fontsource-variable/inter";
+import "@fontsource-variable/fraunces";
+import "@fontsource-variable/jetbrains-mono";
+import "./globals.css";
+
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "@tanstack/react-router";
+import { router } from "./router";
+
+const rootEl = document.getElementById("root");
+if (!rootEl) throw new Error("Root container missing");
+
+createRoot(rootEl).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
+);

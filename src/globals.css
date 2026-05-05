@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Fontsource variable fonts expose CSS variables; map them onto the design tokens. */
+:root {
+  --font-inter: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-fraunces: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-jetbrains: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ==========================================================================
+   Quiet Library — Design Tokens (Tailwind v4 CSS-first @theme config)
+   ========================================================================== */
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
+  --font-mono: var(--font-jetbrains);
+
+  /* Paper / ink — light is the default */
+  --color-paper: #faf7f1;
+  --color-paper-deep: #f3eee3;
+  --color-paper-card: #fffdf8;
+  --color-ink: #161413;
+  --color-ink-soft: #2a2725;
+  --color-ink-muted: #6b6660;
+  --color-ink-faint: #aea89e;
+  --color-rule: rgba(22, 20, 19, 0.09);
+  --color-rule-strong: rgba(22, 20, 19, 0.18);
+  --color-accent: #b8702a;
+  --color-accent-soft: #d49659;
+  --color-accent-bg: rgba(184, 112, 42, 0.08);
+
+  --color-mastery-new: #aea89e;
+  --color-mastery-learning: #b8702a;
+  --color-mastery-mastered: #1f6b46;
+
+  --shadow-paper: 0 1px 0 rgba(22, 20, 19, 0.04), 0 8px 24px -16px rgba(22, 20, 19, 0.18);
+  --shadow-card-hover: 0 1px 0 rgba(22, 20, 19, 0.06), 0 18px 42px -22px rgba(22, 20, 19, 0.32);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Dark theme override */
+.dark {
+  --color-paper: #15110d;
+  --color-paper-deep: #1c1814;
+  --color-paper-card: #1f1a14;
+  --color-ink: #ede6d8;
+  --color-ink-soft: #d8d0bf;
+  --color-ink-muted: #8a8377;
+  --color-ink-faint: #4d4740;
+  --color-rule: rgba(237, 230, 216, 0.09);
+  --color-rule-strong: rgba(237, 230, 216, 0.18);
+  --color-accent: #d89a4a;
+  --color-accent-soft: #e2b276;
+  --color-accent-bg: rgba(216, 154, 74, 0.1);
+
+  --color-mastery-new: #6b665d;
+  --color-mastery-learning: #d89a4a;
+  --color-mastery-mastered: #4ea27a;
+
+  --shadow-paper: 0 1px 0 rgba(0, 0, 0, 0.3), 0 8px 24px -16px rgba(0, 0, 0, 0.6);
+  --shadow-card-hover: 0 1px 0 rgba(0, 0, 0, 0.4), 0 18px 42px -22px rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss03", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-paper);
+}
+
+.hairline {
+  border-color: var(--color-rule);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-feature-settings: "ss01", "ss02";
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(rgba(22, 20, 19, 0.025) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+}
+.dark body::before {
+  background-image: radial-gradient(rgba(237, 230, 216, 0.04) 1px, transparent 1px);
+  mix-blend-mode: screen;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
