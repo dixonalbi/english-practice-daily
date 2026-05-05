@@ -34,7 +34,7 @@ export function FlashCard({ front, back, cardKey }: Props) {
         aria-label="Flip card"
         onClick={flip}
         onKeyDown={handleKey}
-        className="relative cursor-pointer"
+        className="relative cursor-pointer select-none"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.div

@@ -157,7 +157,7 @@ export function FlashcardSession() {
         <button
           type="button"
           onClick={() => setIndex((i) => Math.min(i + 1, deck.length))}
-          className="text-sm text-ink-muted hover:text-ink inline-flex items-center gap-1"
+          className="text-sm text-ink-muted hover:text-ink inline-flex items-center gap-1 cursor-pointer"
         >
           Skip <ArrowRight size={13} />
         </button>

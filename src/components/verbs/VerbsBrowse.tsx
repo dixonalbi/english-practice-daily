@@ -1,7 +1,7 @@
 
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Search, Check, RotateCcw } from "lucide-react";
+import { Search, Check, RotateCcw, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { container } from "@/src/lib/di/container";
 import { VerbDTO } from "@/src/modules/verbs/application/dto/VerbDTO";
@@ -179,11 +179,16 @@ export function VerbsBrowse() {
               transition={{ delay: Math.min(i * 0.012, 0.3), duration: 0.25 }}
               className="group"
             >
-              <div className="flex items-center gap-3 px-2 -mx-2 py-5 hover:bg-paper-deep/40 transition-colors rounded-sm">
+              <div
+                className={cn(
+                  "flex items-center gap-3 px-2 -mx-2 py-5 transition-colors rounded-sm",
+                  isOpen ? "bg-paper-deep/60" : "hover:bg-paper-deep/40",
+                )}
+              >
                 <button
                   type="button"
                   onClick={() => setExpanded(isOpen ? null : v.id)}
-                  className="flex-1 min-w-0 flex items-baseline gap-6 text-left"
+                  className="flex-1 min-w-0 flex items-baseline gap-6 text-left cursor-pointer"
                   aria-expanded={isOpen}
                   aria-label={`Toggle conjugation for ${infinitive.text}`}
                 >
@@ -193,11 +198,28 @@ export function VerbsBrowse() {
 
                   <span className="flex-1 min-w-0 block">
                     <span className="flex items-baseline gap-3 flex-wrap">
-                      <span className="display text-2xl md:text-3xl tracking-tight leading-none">
+                      <span
+                        className={cn(
+                          "display text-2xl md:text-3xl tracking-tight leading-none transition-colors",
+                          isOpen
+                            ? "text-accent"
+                            : "group-hover:text-accent",
+                        )}
+                      >
                         {infinitive.text}
                       </span>
                       <span className="font-mono text-xs text-ink-muted">
                         {infinitive.ipa}
+                      </span>
+                      <span
+                        className={cn(
+                          "eyebrow opacity-0 -translate-x-1 transition-all duration-200",
+                          isOpen
+                            ? "opacity-100 translate-x-0 text-accent"
+                            : "group-hover:opacity-100 group-hover:translate-x-0",
+                        )}
+                      >
+                        {isOpen ? "tap to close" : "tap for tenses"}
                       </span>
                     </span>
                     <span className="block text-sm text-ink-muted mt-1 italic">
@@ -208,6 +230,18 @@ export function VerbsBrowse() {
                   <span className="hidden md:block w-40 shrink-0">
                     <MasteryLabel level={v.masteryLevel} />
                   </span>
+
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "shrink-0 inline-flex items-center justify-center h-7 w-7 rounded-full border border-rule text-ink-muted transition-all duration-300",
+                      isOpen
+                        ? "rotate-180 border-accent text-accent bg-accent-bg"
+                        : "group-hover:border-rule-strong group-hover:text-ink",
+                    )}
+                  >
+                    <ChevronDown size={14} />
+                  </span>
                 </button>
 
                 <PronunciationButton text={infinitive.speechText} />
@@ -216,7 +250,7 @@ export function VerbsBrowse() {
                   type="button"
                   onClick={() => cycleMastery(v)}
                   className={cn(
-                    "shrink-0 inline-flex items-center justify-center h-8 w-8 rounded-full border transition-colors",
+                    "shrink-0 inline-flex items-center justify-center h-8 w-8 rounded-full border transition-colors cursor-pointer",
                     v.masteryLevel === "MASTERED"
                       ? "bg-mastery-mastered border-mastery-mastered text-paper"
                       : "border-rule-strong text-ink-muted hover:text-accent hover:border-accent",

@@ -3,7 +3,7 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/src/lib/utils";
 
 const button = cva(
-  "inline-flex items-center justify-center gap-2 select-none whitespace-nowrap font-sans text-sm transition-[background,color,border,transform] duration-200 disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2",
+  "inline-flex items-center justify-center gap-2 select-none whitespace-nowrap font-sans text-sm cursor-pointer transition-[background,color,border,transform] duration-200 disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2",
   {
     variants: {
       variant: {

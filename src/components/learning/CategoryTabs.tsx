@@ -29,7 +29,7 @@ export function CategoryTabs({ tabs, active, onChange }: Props) {
             aria-selected={isActive}
             onClick={() => onChange(t.id)}
             className={cn(
-              "shrink-0 px-3 py-2 text-sm rounded-sm transition-colors flex items-baseline gap-2",
+              "shrink-0 px-3 py-2 text-sm rounded-sm transition-colors flex items-baseline gap-2 cursor-pointer",
               isActive
                 ? "bg-ink text-paper"
                 : "text-ink-muted hover:text-ink hover:bg-paper-deep",

@@ -79,7 +79,7 @@ export function Header() {
           type="button"
           onClick={toggleTheme}
           aria-label="Toggle theme"
-          className="ms-auto md:ms-0 h-9 w-9 inline-flex items-center justify-center rounded-sm border border-rule hover:border-rule-strong transition-colors text-ink"
+          className="ms-auto md:ms-0 h-9 w-9 inline-flex items-center justify-center rounded-sm border border-rule hover:border-rule-strong transition-colors text-ink cursor-pointer"
         >
           {dark ? <Sun size={15} /> : <Moon size={15} />}
         </button>
